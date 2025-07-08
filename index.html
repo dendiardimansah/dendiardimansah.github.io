@@ -3,321 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dendi Ardimansah - Jurnal & Karya</title>
-    <!-- Tailwind CSS CDN untuk styling cepat dan responsif -->
+    <title>Dendi Ardimansah - Personal Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Font Inter (tetap modern dan bersih) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Kreon:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Custom Styles */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0fdf4; /* Hijau sangat muda, seperti daun muda */
-            color: #333;
-        }
-        .container {
-            max-width: 1000px; /* Ukuran container sedikit lebih kecil untuk kesan minimalis */
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #166534; /* Hijau gelap, seperti dedaunan tua */
-            margin-bottom: 2.5rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: #34d399; /* Hijau cerah */
-            border-radius: 2px;
-        }
-        .card {
-            background-color: #ffffff;
-            border-radius: 1.25rem;
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #e0e0e0;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 18px 25px rgba(0, 0, 0, 0.12);
-        }
-        .blog-post-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #065f46;
-            margin-bottom: 0.8rem;
-        }
-        .blog-post-meta {
-            font-size: 0.9rem;
-            color: #6b7280;
-            margin-bottom: 1.2rem;
-        }
-        .read-more-link {
-            color: #047857;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .read-more-link:hover {
-            color: #064e3b;
-            text-decoration: underline;
-        }
-        .nav-link {
-            padding: 0.8rem 1.4rem;
-            border-radius: 0.75rem;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-            font-weight: 500;
-        }
-        .nav-link:hover {
-            background-color: #34d399;
-            color: white;
-            transform: translateY(-2px);
-        }
-        .active-nav {
-            background-color: #059669;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #FBFBFB; /* Off-white */
+            color: #3d405b; /* Dark Slate Blue */
         }
 
-        /* Gaya untuk Parallax Effect */
-        .parallax-section {
-            background-image: url('https://placehold.co/1600x800/10b981/ffffff?text=Lanskap+Sunda+Indah'); /* Ganti dengan gambar lanskap Sunda asli */
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center center;
-            min-height: 450px; /* Tinggi minimum sedikit dikurangi */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
+        /* Using a more traditional-looking font for headers */
+        h1, h2, h3, .font-kreon {
+            font-family: 'Kreon', serif;
+        }
+        
+        /* Batik pattern background for specific sections */
+        .batik-bg {
+            background-image: url('https://www.transparenttextures.com/patterns/batthern.png'); /* Pola batik minimalis */
+            background-color: #f4f1eb; /* Light beige */
+        }
+
+        /* Hero Slider Styling */
+        .hero-slider {
             position: relative;
-            margin-bottom: 4rem;
-            border-radius: 1.5rem;
+            height: 80vh;
             overflow: hidden;
         }
-        .parallax-overlay {
-            background-color: rgba(0, 0, 0, 0.4);
+        .slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.4);
         }
-        .sunda-motif {
+        .slider-nav {
             position: absolute;
-            font-size: 6rem;
-            opacity: 0.1;
-            color: #d1fae5;
-            pointer-events: none;
-            z-index: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 4;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1.5rem;
         }
-        .sunda-motif.top-left { top: 20px; left: 20px; transform: rotate(-15deg); }
-        .sunda-motif.bottom-right { bottom: 20px; right: 20px; transform: rotate(15deg); }
-        .sunda-motif::before {
-            content: "ᮞᮥᮔ᮪ᮓ"; /* Aksara Sunda: Sunda */
-            font-family: 'Noto Sans Sundanese', sans-serif;
+        .slider-nav button {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .slider-nav button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+
+        /* Page transition animation */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom icon styling */
+        .sundanese-icon {
+            width: 24px;
+            height: 24px;
+            stroke-width: 1.5;
+        }
+
+        /* Language toggle styling */
+        .lang-toggle {
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 9999px;
+            transition: background-color 0.3s;
+        }
+        .lang-toggle.active {
+            background-color: #81b29a; /* Sage Green */
+            color: white;
+        }
+        
+        /* Project card hover effect */
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Blog Article Styling */
+        .blog-article h4 {
+            font-family: 'Kreon', serif;
+            font-size: 1.5rem; /* 24px */
+            font-weight: 700;
+            margin-top: 2rem; /* 32px */
+            margin-bottom: 1rem; /* 16px */
+        }
+        .blog-article p {
+            line-height: 1.75;
+            margin-bottom: 1.25rem; /* 20px */
+            color: #4a5568; /* gray-700 */
+        }
+        .blog-article strong {
+            font-weight: 700;
+            color: #3d405b;
         }
     </style>
-    <!-- Jika ingin menggunakan aksara Sunda, Anda perlu mengimpor fontnya. Contoh: -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sundanese&display=swap" rel="stylesheet"> -->
 </head>
-<body class="antialiased">
-    <!-- Header dan Navigasi -->
-    <header class="bg-gradient-to-r from-emerald-700 to-green-900 text-white shadow-lg py-6">
-        <div class="container flex flex-col md:flex-row justify-between items-center">
-            <h1 class="text-4xl font-bold mb-4 md:mb-0">Dendi Ardimansah</h1>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="#beranda" class="nav-link active-nav" data-section="beranda">Beranda</a></li>
-                    <li><a href="#tentang-saya" class="nav-link" data-section="tentang-saya">Tentang Saya</a></li>
-                    <li><a href="#blog" class="nav-link" data-section="blog">Blog</a></li>
-                </ul>
-            </nav>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-x-3 text-2xl font-bold font-kreon text-[#3d405b]" data-page="home">
+                <span>Dendi Ardimansah</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" class="nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="home" data-lang-key="nav_home">Home</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="about" data-lang-key="nav_about">About</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="projects" data-lang-key="nav_projects">Projects</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="blog" data-lang-key="nav_blog">Blog</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="contact" data-lang-key="nav_contact">Contact</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                 <!-- Language Toggle -->
+                <div class="flex items-center bg-gray-200 rounded-full p-1 text-sm">
+                    <span id="lang-su" class="lang-toggle" data-lang="su">SU</span>
+                    <span id="lang-id" class="lang-toggle active" data-lang="id">ID</span>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden">
+                    <svg class="sundanese-icon text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+             <a href="#" class="block py-2 nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="home" data-lang-key="nav_home">Home</a>
+             <a href="#" class="block py-2 nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="about" data-lang-key="nav_about">About</a>
+             <a href="#" class="block py-2 nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="projects" data-lang-key="nav_projects">Projects</a>
+             <a href="#" class="block py-2 nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="blog" data-lang-key="nav_blog">Blog</a>
+             <a href="#" class="block py-2 nav-link text-gray-600 hover:text-[#81b29a] transition" data-page="contact" data-lang-key="nav_contact">Contact</a>
         </div>
     </header>
 
-    <!-- Konten Utama -->
-    <main class="container py-10">
-        <!-- Bagian Beranda dengan Parallax -->
-        <section id="beranda" class="mb-12">
-            <div class="parallax-section">
-                <div class="parallax-overlay">
-                    <div class="relative z-10">
-                        <h2 class="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
-                            Selamat Datang di Website saya
-                        </h2>
-                        <p class="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto drop-shadow-md">
-                            Menjelajahi keindahan alam, kekayaan budaya, dan jejak sejarah yang membentuk identitas desa kami untuk generasi penerus.
-                        </p>
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero-slider">
+                <!-- Slides -->
+                <div class="slide active" style="background-image: url('https://placehold.co/1200x800/81b29a/3d405b?text=Curug+Batu+Nyusun');"></div>
+                <div class="slide" style="background-image: url('https://placehold.co/1200x800/e07a5f/ffffff?text=Desa+Sunda');"></div>
+                <div class="slide" style="background-image: url('https://placehold.co/1200x800/3d405b/ffffff?text=Sawah+Terasering');"></div>
+                
+                <!-- Content Overlay -->
+                <div class="hero-content">
+                    <div class="text-white">
+                        <h1 class="text-5xl md:text-7xl font-bold font-kreon drop-shadow-lg" data-lang-key="greeting">Wilujeng Sumping</h1>
+                        <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto" data-lang-key="intro">Exploring the intersection of modern technology and Sundanese heritage.</p>
                     </div>
                 </div>
-                <!-- Motif Sunda sebagai latar belakang transparan -->
-                <span class="sunda-motif top-left hidden md:block"></span>
-                <span class="sunda-motif bottom-right hidden md:block"></span>
-            </div>
 
-            <div class="card text-center mt-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Tentang Jurnal Ini</h2>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Website ini adalah wadah untuk mendokumentasikan dan berbagi kisah-kisah berharga dari desa kami. Dari cerita rakyat turun-temurun, keindahan lanskap yang memukau, hingga karya tulis pribadi yang terinspirasi oleh kearifan lokal. Mari bersama merawat ingatan dan harapan.
-                </p>
-                <div class="mt-8">
-                    <img src="https://placehold.co/800x400/065f46/ffffff?text=Gambar+Budaya+Sunda" alt="Gambar Ilustrasi Budaya Sunda" class="rounded-lg shadow-md mx-auto">
-                    <p class="text-sm text-gray-500 mt-2">Sebuah gambaran kekayaan budaya Sunda di desa kami.</p>
+                <!-- Navigation -->
+                <div class="slider-nav">
+                    <button id="prev-slide">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button id="next-slide">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Bagian Tentang Saya -->
-        <section id="tentang-saya" class="mb-12 hidden">
-            <h2 class="section-title">Tentang Saya</h2>
-            <div class="card text-center">
-                <img src="https://photos.app.goo.gl/gYVpMt8yRQhxszZT8" alt="Foto Profil Dendi Ardimansah" class="rounded-full mx-auto mb-6 shadow-lg">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">Dendi Ardimansah</h3>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                    Saya adalah seorang mahasiswa informatika yang suka budaya lokal yang bersemangat untuk mendokumentasikan kekayaan sejarah, tradisi, dan keindahan alam desa saya, Pangrumasan. Melalui tulisan-tulisan ini, saya berharap dapat berbagi cerita dan inspirasi, serta menumbuhkan rasa cinta terhadap warisan leluhur di kalangan generasi muda.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    Selain fokus pada sejarah desa, saya juga menulis berbagai karya lain yang terinspirasi dari kehidupan sehari-hari dan kearifan lokal. Mari terhubung!
-                </p>
-                <p class="text-xl font-semibold text-emerald-700 mt-6">Email: <a href="mailto:emailanda@example.com" class="read-more-link">dendiardimansah@gmail.com</a></p>
-                <p class="text-xl font-semibold text-emerald-700 mt-2">Sosial Media: <a href="https://twitter.com/nama_akun_anda" target="_blank" class="read-more-link">Twitter</a> | <a href="https://linkedin.com/in/nama_akun_anda" target="_blank" class="read-more-link">LinkedIn</a></p>
+        <!-- About Page -->
+        <section id="about" class="page container mx-auto px-6 py-16">
+            <h2 class="text-4xl font-bold text-center mb-12 font-kreon" data-lang-key="about_title">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3">
+                    <img src="https://placehold.co/400x400/e07a5f/3d405b?text=Dendi+A." alt="Dendi Ardimansah" class="rounded-full shadow-lg mx-auto">
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-4" data-lang-key="about_mission_title">Mission</h3>
+                    <p class="mb-4" data-lang-key="about_mission_p1">
+                        I am a technology enthusiast from West Java, passionate about bridging the gap between innovative digital solutions and the rich, timeless wisdom of Sundanese culture. My work focuses on creating technology that is not only functional but also culturally relevant and empowering for local communities.
+                    </p>
+                    <p data-lang-key="about_mission_p2">
+                        From developing IoT for sustainable agriculture in local villages to creating applications that preserve Sundanese language and arts, my goal is to prove that tradition and technology can coexist and enrich one another.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <!-- Bagian Blog (menggabungkan Sejarah Desa, Budaya, Alam, dan Karya Lain) -->
-        <section id="blog" class="mb-12 hidden">
-            <h2 class="section-title">Blog Saya</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Contoh Postingan Blog Sejarah Desa 1 -->
-                <div class="card">
-                    <h3 class="blog-post-title">Asal Mula Nama Desa [Nama Desa Anda] dan Legenda Lokal</h3>
-                    <p class="blog-post-meta">Sejarah Desa | 5 Juli 2025 oleh Dendi Ardimansah</p>
-                    <p class="text-gray-700 mb-4">
-                        Setiap desa memiliki cerita di balik namanya. Desa kami, [Nama Desa Anda], juga memiliki kisah menarik tentang bagaimana nama ini tercipta, diiringi oleh legenda yang diwariskan...
-                    </p>
-                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+        <!-- Projects Page -->
+        <section id="projects" class="page py-16 batik-bg">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 font-kreon" data-lang-key="projects_title">My Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 project-card">
+                        <img src="https://placehold.co/600x400/3d405b/f4f1eb?text=IoT+Paddy+Field" class="w-full h-48 object-cover" alt="IoT for Paddy Fields">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">IoT for Paddy Fields</h3>
+                            <p class="text-gray-600" data-lang-key="project1_desc">A smart irrigation system using IoT to optimize water usage and increase crop yield for local farmers.</p>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 project-card">
+                        <img src="https://placehold.co/600x400/81b29a/f4f1eb?text=Sundanese+Script+App" class="w-full h-48 object-cover" alt="Sundanese Script App">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Aksara Sunda App</h3>
+                            <p class="text-gray-600" data-lang-key="project2_desc">A mobile application to help users learn and practice writing in the traditional Sundanese script (Aksara Sunda).</p>
+                        </div>
+                    </div>
+                    <!-- Project Card 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 project-card">
+                        <img src="https://placehold.co/600x400/e07a5f/f4f1eb?text=Village+Tourism+Platform" class="w-full h-48 object-cover" alt="Village Tourism Platform">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Desa Digital Platform</h3>
+                            <p class="text-gray-600" data-lang-key="project3_desc">A web platform promoting eco-tourism in Pangrumasan village, featuring local homestays and cultural experiences.</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Contoh Postingan Blog Budaya Desa 2 -->
-                <div class="card">
-                    <h3 class="blog-post-title">Tradisi Gotong Royong & Upacara Adat Panen</h3>
-                    <p class="blog-post-meta">Budaya Desa | 1 Juli 2025 oleh Dendi Ardimansah</p>
-                    <p class="text-gray-700 mb-4">
-                        Gotong royong adalah salah satu pilar utama kehidupan di desa kami. Tradisi ini telah diwariskan turun-temurun dan masih sangat kental, terutama dalam upacara adat panen...
-                    </p>
-                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+        <!-- Blog Page -->
+        <section id="blog" class="page container mx-auto px-6 py-16">
+            <h2 class="text-4xl font-bold text-center mb-12 font-kreon" data-lang-key="blog_title">Blog: Pangrumasan</h2>
+            <div class="space-y-16">
+
+                <!-- Full Blog Post 1: Desa Pangrumasan -->
+                <article class="max-w-4xl mx-auto blog-article">
+                    <h3 class="text-3xl font-bold mb-6 font-kreon text-center">Pesona Desa Pangrumasan</h3>
+                    <img src="https://placehold.co/800x400/81b29a/ffffff?text=Sawah+Terasering+Pangrumasan" alt="Sawah Terasering di Desa Pangrumasan" class="rounded-lg shadow-md w-full mb-8">
+                    
+                    <p>Di pesisi garut jawabarat, tersembunyi sebuah desa bernama Pangrumasan. Lebih dari sekadar pemukiman, Pangrumasan adalah sebuah kanvas hidup yang melukiskan kekayaan sejarah, budaya, dan keindahan alam tatar Sunda. Mari kita telusuri setiap sudut desa ini.</p>
+
+                    <h4>Sejarah dan Asal Usul</h4>
+                    <p>Nama “Pangrumasan” berasal dari sungai Cipangru dan makna “masan” atau keemasan, mencerminkan harapan menjadi desa makmur dan sejahtera di masa depan.</p>
+
+                    <h4>Luas Wilayah dan Geografi</h4>
+                    <p>Terletak di bagian selatan Kabupaten Garut, Desa Pangrumasan membentang seluas 6.882,65 ha, terdiri dari 6 dusun, 6 RW, dan 26 RT. Berbatasan dengan Desa Purwajaya (utara), Toblong (timur), Cikondang (barat), dan Maroko/Cibalong (selatan). Topografinya bergunung-perbukitan dengan ketinggian antara 200–500 m dpl, mencakup dataran rendah, lereng, hingga hutan lindung seluas sekitar 500 ha.</p>
+
+                    <h4>Kekayaan Budaya dan Kesenian</h4>
+                    <p>Budaya adalah denyut nadi Pangrumasan. Masyarakatnya masih mempraktikkan berbagai upacara adat yang diwariskan turun-temurun, seperti upacara syukuran panen (Seren Taun) yang menjadi wujud terima kasih kepada Sang Pencipta atas hasil bumi yang melimpah.</p>
+                    <p>Kesenian Sunda juga tumbuh subur di sini. Alunan musik dari alat-alat tradisional seperti kacapi, suling, dan angklung sering terdengar, mengiringi berbagai acara komunal. Kesenian beluk, seni vokal khas Sunda yang unik, juga masih dilestarikan oleh para tetua desa, menjadi jembatan antara generasi masa lalu dan masa kini.</p>
+
+                    <h4>Bahasa Sehari-hari</h4>
+                    <p>Bahasa Sunda adalah bahasa utama yang digunakan oleh masyarakat Desa Pangrumasan dalam percakapan sehari-hari. Penggunaan bahasa Sunda yang kental, dengan dialek khas Priangan, menjadi salah satu pilar utama dalam menjaga identitas budaya mereka. Keramahan warga yang menyapa dengan logat Sunda yang halus akan memberikan pengalaman otentik bagi siapa pun yang berkunjung.</p>
+
+                    <h4>Pesona Keindahan Alam</h4>
+                    <p>Pangrumasan adalah surga bagi para pencinta alam. Desa ini menjadi rumah bagi beberapa air terjun (curug) yang menakjubkan, salah satunya adalah <strong>Curug Batu Nyusun</strong>. Curug ini memiliki formasi batuan vulkanik yang tersusun rapi secara alami, seolah-olah ditata oleh tangan manusia, menciptakan pemandangan yang spektakuler.</p>
+                    <p>Selain itu, aliran sungai yang jernih membelah desa, dan jalur-jalur trekking melintasi perbukitan menawarkan panorama alam yang luar biasa. Udara yang sejuk dan suasana yang tenang menjadikan Pangrumasan tempat yang ideal untuk melepaskan penat dari hiruk pikuk kehidupan kota.</p>
+                    
+                    <p class="mt-8 font-semibold">Desa Pangrumasan adalah bukti nyata bahwa alam dan budaya dapat hidup berdampingan secara harmonis. Mengunjunginya bukan hanya sekadar perjalanan wisata, tetapi juga sebuah perjalanan untuk menyelami jiwa dan kearifan budaya Sunda yang sejati.</p>
+                </article>
+
+                <hr class="my-12 border-gray-300">
+
+                <!-- Blog Post 2 Excerpt -->
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4 font-kreon">Artikel Lainnya</h3>
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/3">
+                            <img src="https://placehold.co/600x400/b5838d/ffffff?text=Curug+Batu+Nyusun" alt="Curug Batu Nyusun" class="rounded-lg shadow-md w-full">
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-xl font-bold mb-2 font-kreon">Curug Batu Nyusun: Karya Seni Alam</h4>
+                            <p class="text-gray-600" data-lang-key="blog2_excerpt">Sebuah perjalanan ke air terjun Curug Batu Nyusun yang menakjubkan, menjelajahi keajaiban geologis dan cerita rakyat yang mengelilinginya.</p>
+                            <a href="#" class="text-[#81b29a] hover:underline mt-4 inline-block" data-lang-key="read_more">Baca Selengkapnya...</a>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Contoh Postingan Blog Kesenian Desa 3 -->
-                <div class="card">
-                    <h3 class="blog-post-title">Kesenian [Nama Kesenian Khas]: Simbol Kehidupan Desa</h3>
-                    <p class="blog-post-meta">Budaya Desa | 28 Juni 2025 oleh Dendi Ardimansah</p>
-                    <p class="text-gray-700 mb-4">
-                        [Nama Kesenian Khas] bukan hanya sekadar pertunjukan, melainkan cerminan filosofi dan semangat kebersamaan masyarakat desa kami. Mari kita telusuri maknanya...
-                    </p>
-                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+        <!-- Contact Page -->
+        <section id="contact" class="page py-16 batik-bg">
+            <div class="container mx-auto px-6 max-w-xl text-center">
+                <h2 class="text-4xl font-bold mb-4 font-kreon" data-lang-key="contact_title">Get In Touch</h2>
+                <p class="text-gray-600 mb-8" data-lang-key="contact_subtitle">Have a question or a project in mind? Let's connect.</p>
+                <form action="#" method="POST" class="space-y-6 text-left">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700" data-lang-key="form_name">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-[#81b29a] focus:border-[#81b29a]">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-[#81b29a] focus:border-[#81b29a]">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700" data-lang-key="form_message">Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-[#81b29a] focus:border-[#81b29a]"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-[#3d405b] text-white py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-300" data-lang-key="form_submit">Send Message</button>
+                    </div>
+                </form>
+                <div class="mt-12">
+                    <p class="text-lg font-semibold mb-4" data-lang-key="social_follow">Follow me on</p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#" class="text-gray-500 hover:text-[#3d405b]">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-[#3d405b]">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-[#3d405b]">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.062-.327-.019-.724.09-1.045.12-.37.738-3.124.738-3.124s-.18-.36-.18-.884c0-.828.48-1.446 1.08-1.446.512 0 .762.383.762.848 0 .512-.326 1.273-.493 1.982-.138.582.294 1.058.875 1.058 1.048 0 1.853-1.116 1.853-2.722 0-1.43-.998-2.5-2.23-2.5-1.528 0-2.436 1.144-2.436 2.272 0 .404.145.845.326 1.11.03.07.036.086.025.132-.012.05-.043.18-.055.228-.014.058-.06.075-.117.055-.42-.15-.682-.63-.682-1.12 0-.94.693-1.758 1.9-1.758 1.01 0 1.83.73 1.83 1.63 0 .975-.615 1.72-1.48 1.72-.292 0-.57-.145-.66-.31l-.253-1.042c-.158-.645-.6-1.24-1.01-1.624.48-.09.98-.145 1.48-.145 1.96 0 3.33 1.49 3.33 3.58 0 1.9-1.12 3.33-2.77 3.33-.553 0-1.07-.288-1.24-.62l-.337-1.35c-.145-.592-.56-1.12-.56-1.12s-.345 1.45-.43 1.82c-.18.73-.145 1.58.045 2.22C8.995 21.165 10.43 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                        </a>
+                    </div>
                 </div>
-
-                <!-- Contoh Postingan Blog Keindahan Alam 4 -->
-                <div class="card">
-                    <h3 class="blog-post-title">Pesona Sawah Terasering: Hamparan Hijau yang Menenangkan</h3>
-                    <p class="blog-post-meta">Keindahan Alam | 25 Juni 2025 oleh Dendi Ardimansah</p>
-                    <p class="text-gray-700 mb-4">
-                        Sawah terasering di desa kami bukan hanya sumber kehidupan, tetapi juga pemandangan yang memukau mata, terutama saat pagi hari...
-                    </p>
-                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
-                </div>
-
-                <!-- Contoh Postingan Blog Keindahan Alam 5 -->
-                <div class="card">
-                    <h3 class="blog-post-title">Mata Air [Nama Mata Air]: Sumber Kehidupan yang Jernih</h3>
-                    <p class="blog-post-meta">Keindahan Alam | 22 Juni 2025 oleh Dendi Ardimansah</p>
-                    <p class="text-gray-700 mb-4">
-                        Di balik rimbunnya pepohonan, mengalir mata air jernih yang menjadi nadi kehidupan desa. Kisah-kisah di baliknya tak kalah menarik...
-                    </p>
-                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
-                </div>
-
-                <!-- Contoh Karya Tulis Lain 6 -->
-                <div class="card">
-                    <h3 class="blog-post-title">Puisi: Kidung Alam Sunda</h3>
-                    <p class="blog-post-meta">Karya Tulis | 20 Juni 2025 oleh Dendi Ardimansah</p>
-                    <p class="text-gray-700 mb-4">
-                        Kumpulan kata-kata yang merangkai keindahan senja di pedesaan, sebuah refleksi tentang ketenangan dan kedamaian...
-                    </p>
-                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
-                </div>
-
-                <!-- Contoh Karya Tulis Lain 7 -->
-                <div class="card">
-                    <h3 class="blog-post-title">Esai: Kopi Lokal dan Kisah Petani</h3>
-                    <p class="blog-post-meta">Karya Tulis | 15 Juni 2025 oleh Dendi Ardimansah</p>
-                    <p class="text-gray-700 mb-4">
-                        Sebuah esai yang membahas perjalanan biji kopi dari kebun hingga cangkir, serta dedikasi para petani di desa kami...
-                    </p>
-                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
-                </div>
-
-                <!-- Tambahkan lebih banyak postingan di sini -->
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-10">
-        <div class="container text-center">
-            <p>&copy; 2025 Dendi Ardimansah. Semua Hak Cipta Dilindungi.</p>
-            <p class="text-sm mt-2">Dibuat dengan ❤️ </p>
-            <p class="text-sm mt-2">Hubungi saya: <a href="mailto:dendiardimansah@gmail.com" class="text-green-300 hover:underline">dendiardimansah@gmail.com</a></p>
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; <span id="year"></span> Dendi Ardimansah. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Fungsi untuk menampilkan bagian yang dipilih dan menyembunyikan yang lain
-        function showSection(sectionId) {
-            // Sembunyikan semua section
-            document.querySelectorAll('main section').forEach(section => {
-                section.classList.add('hidden');
-            });
-            // Tampilkan section yang dipilih
-            document.getElementById(sectionId).classList.remove('hidden');
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link, a[data-page]');
+            const pages = document.querySelectorAll('.page');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const langToggles = document.querySelectorAll('.lang-toggle');
+            
+            document.getElementById('year').textContent = new Date().getFullYear();
 
-            // Hapus kelas 'active-nav' dari semua link navigasi
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active-nav');
-            });
-            // Tambahkan kelas 'active-nav' ke link yang sedang aktif
-            document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active-nav');
-        }
+            // --- Page Navigation ---
+            function showPage(pageId) {
+                pages.forEach(page => page.classList.remove('active'));
+                const activePage = document.getElementById(pageId);
+                if(activePage) activePage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
 
-        // Event listener untuk navigasi
-        document.addEventListener('DOMContentLoaded', () => {
-            // Tampilkan bagian 'beranda' secara default saat halaman dimuat
-            showSection('beranda');
-
-            document.querySelectorAll('.nav-link').forEach(link => {
+            navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault(); // Mencegah perilaku default link
-                    const sectionId = this.getAttribute('data-section');
-                    showSection(sectionId);
+                    e.preventDefault();
+                    const pageId = this.dataset.page;
+                    showPage(pageId);
+                    if(mobileMenu.classList.contains('block')) {
+                        mobileMenu.classList.remove('block');
+                        mobileMenu.classList.add('hidden');
+                    }
                 });
             });
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('block');
+            });
+
+            // --- Hero Slider ---
+            const slides = document.querySelectorAll('.slide');
+            const nextBtn = document.getElementById('next-slide');
+            const prevBtn = document.getElementById('prev-slide');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    }
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function startSlideShow() {
+                slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            }
+
+            function stopSlideShow() {
+                clearInterval(slideInterval);
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopSlideShow();
+                startSlideShow();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopSlideShow();
+                startSlideShow();
+            });
+
+            startSlideShow();
+
+
+            // --- Language Translation ---
+            const translations = {
+                su: {
+                    greeting: "Wilujeng Sumping",
+                    intro: "Ngajajah simpang siur antara téknologi modéren jeung warisan Sunda.",
+                    nav_home: "Tepas",
+                    nav_about: "Ngeunaan",
+                    nav_projects: "Proyék",
+                    nav_blog: "Blog",
+                    nav_contact: "Kontak",
+                    about_title: "Ngeunaan Kuring",
+                    about_mission_title: "Misi",
+                    about_mission_p1: "Abdi téh peminat téknologi ti Jawa Kulon, boga sumanget pikeun ngahijikeun solusi digital inovatif jeung kearifan budaya Sunda nu luhung. Karya abdi museur kana nyiptakeun téknologi nu teu ngan fungsional, tapi ogé relevan sacara budaya jeung bisa ngaberdayakeun masarakat lokal.",
+                    about_mission_p2: "Ti ngamekarkeun IoT pikeun tatanén di pilemburan nepi ka nyieun aplikasi pikeun ngamumulé basa jeung seni Sunda, tujuan abdi nyaéta ngabuktikeun yén tradisi jeung téknologi bisa hirup babarengan sarta silih ngeuyeuban.",
+                    projects_title: "Proyék Kuring",
+                    project1_desc: "Sistem irigasi pinter ngagunakeun IoT pikeun ngaoptimalkeun pamakéan cai jeung ningkatkeun hasil panén pikeun patani lokal.",
+                    project2_desc: "Aplikasi mobile pikeun mantuan pamaké diajar jeung latihan nulis Aksara Sunda.",
+                    project3_desc: "Platform wéb pikeun ngamajukeun ékowisata di désa Pangrumasan, nampilkeun homestay jeung pangalaman budaya lokal.",
+                    blog_title: "Blog: Carita ti Tanah Sunda",
+                    blog2_excerpt: "Lalakon ka Curug Batu Nyusun nu éndah, ngajajah kaajaiban géologis jeung carita rahayat nu aya di sabudeureunana.",
+                    read_more: "Maca deui...",
+                    contact_title: "Hayu Urang Kontak",
+                    contact_subtitle: "Aya patarosan atanapi gaduh proyék? Hayu urang ngobrol.",
+                    form_name: "Nami",
+                    form_message: "Pesen",
+                    form_submit: "Kirim Pesen",
+                    social_follow: "Tuturkeun kuring di"
+                },
+                id: {
+                    greeting: "Selamat Datang",
+                    intro: "Menjelajahi persimpangan antara teknologi modern dan warisan Sunda.",
+                    nav_home: "Beranda",
+                    nav_about: "Tentang",
+                    nav_projects: "Proyek",
+                    nav_blog: "Blog",
+                    nav_contact: "Kontak",
+                    about_title: "Tentang Saya",
+                    about_mission_title: "Misi",
+                    about_mission_p1: "Saya seorang peminat teknologi dari Jawa Barat, bersemangat menjembatani kesenjangan antara solusi digital inovatif dan kearifan budaya Sunda yang kaya. Pekerjaan saya berfokus pada penciptaan teknologi yang tidak hanya fungsional tetapi juga relevan secara budaya dan memberdayakan masyarakat lokal.",
+                    about_mission_p2: "Dari mengembangkan IoT untuk pertanian berkelanjutan di desa-desa lokal hingga membuat aplikasi yang melestarikan bahasa dan seni Sunda, tujuan saya adalah membuktikan bahwa tradisi dan teknologi dapat hidup berdampingan dan saling memperkaya.",
+                    projects_title: "Proyek Saya",
+                    project1_desc: "Sistem irigasi pintar menggunakan IoT untuk mengoptimalkan penggunaan air dan meningkatkan hasil panen bagi petani lokal.",
+                    project2_desc: "Aplikasi seluler untuk membantu pengguna belajar dan berlatih menulis dalam aksara Sunda tradisional.",
+                    project3_desc: "Platform web yang mempromosikan ekowisata di desa Pangrumasan, menampilkan homestay lokal dan pengalaman budaya.",
+                    blog_title: "Blog: Kisah dari Tanah Sunda",
+                    blog2_excerpt: "Sebuah perjalanan ke air terjun Curug Batu Nyusun yang menakjubkan, menjelajahi keajaiban geologis dan cerita rakyat yang mengelilinginya.",
+                    read_more: "Baca Selengkapnya...",
+                    contact_title: "Hubungi Saya",
+                    contact_subtitle: "Punya pertanyaan atau proyek? Mari terhubung.",
+                    form_name: "Nama",
+                    form_message: "Pesan",
+                    form_submit: "Kirim Pesan",
+                    social_follow: "Ikuti saya di"
+                }
+            };
+
+            function setLanguage(lang) {
+                document.documentElement.lang = lang;
+                const elements = document.querySelectorAll('[data-lang-key]');
+                
+                elements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    if (translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+                
+                langToggles.forEach(toggle => {
+                    toggle.classList.toggle('active', toggle.dataset.lang === lang);
+                });
+            }
+
+            langToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    setLanguage(this.dataset.lang);
+                });
+            });
+
+            // Set initial language
+            const initialLang = document.querySelector('.lang-toggle.active')?.dataset.lang || 'id';
+            setLanguage(initialLang);
         });
     </script>
 </body>
