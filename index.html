@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dendi Ardimansah - Jurnal & Karya</title>
+    <!-- Tailwind CSS CDN untuk styling cepat dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font Inter (tetap modern dan bersih) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4; /* Hijau sangat muda, seperti daun muda */
+            color: #333;
+        }
+        .container {
+            max-width: 1000px; /* Ukuran container sedikit lebih kecil untuk kesan minimalis */
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #166534; /* Hijau gelap, seperti dedaunan tua */
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #34d399; /* Hijau cerah */
+            border-radius: 2px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 25px rgba(0, 0, 0, 0.12);
+        }
+        .blog-post-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 0.8rem;
+        }
+        .blog-post-meta {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 1.2rem;
+        }
+        .read-more-link {
+            color: #047857;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .read-more-link:hover {
+            color: #064e3b;
+            text-decoration: underline;
+        }
+        .nav-link {
+            padding: 0.8rem 1.4rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            background-color: #34d399;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .active-nav {
+            background-color: #059669;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Gaya untuk Parallax Effect */
+        .parallax-section {
+            background-image: url('https://placehold.co/1600x800/10b981/ffffff?text=Lanskap+Sunda+Indah'); /* Ganti dengan gambar lanskap Sunda asli */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+            min-height: 450px; /* Tinggi minimum sedikit dikurangi */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            margin-bottom: 4rem;
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+        .parallax-overlay {
+            background-color: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .sunda-motif {
+            position: absolute;
+            font-size: 6rem;
+            opacity: 0.1;
+            color: #d1fae5;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .sunda-motif.top-left { top: 20px; left: 20px; transform: rotate(-15deg); }
+        .sunda-motif.bottom-right { bottom: 20px; right: 20px; transform: rotate(15deg); }
+        .sunda-motif::before {
+            content: "ᮞᮥᮔ᮪ᮓ"; /* Aksara Sunda: Sunda */
+            font-family: 'Noto Sans Sundanese', sans-serif;
+        }
+    </style>
+    <!-- Jika ingin menggunakan aksara Sunda, Anda perlu mengimpor fontnya. Contoh: -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sundanese&display=swap" rel="stylesheet"> -->
+</head>
+<body class="antialiased">
+    <!-- Header dan Navigasi -->
+    <header class="bg-gradient-to-r from-emerald-700 to-green-900 text-white shadow-lg py-6">
+        <div class="container flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-4xl font-bold mb-4 md:mb-0">Dendi Ardimansah</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#beranda" class="nav-link active-nav" data-section="beranda">Beranda</a></li>
+                    <li><a href="#tentang-saya" class="nav-link" data-section="tentang-saya">Tentang Saya</a></li>
+                    <li><a href="#blog" class="nav-link" data-section="blog">Blog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="container py-10">
+        <!-- Bagian Beranda dengan Parallax -->
+        <section id="beranda" class="mb-12">
+            <div class="parallax-section">
+                <div class="parallax-overlay">
+                    <div class="relative z-10">
+                        <h2 class="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+                            Selamat Datang di Website saya
+                        </h2>
+                        <p class="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto drop-shadow-md">
+                            Menjelajahi keindahan alam, kekayaan budaya, dan jejak sejarah yang membentuk identitas desa kami untuk generasi penerus.
+                        </p>
+                    </div>
+                </div>
+                <!-- Motif Sunda sebagai latar belakang transparan -->
+                <span class="sunda-motif top-left hidden md:block"></span>
+                <span class="sunda-motif bottom-right hidden md:block"></span>
+            </div>
+
+            <div class="card text-center mt-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Tentang Jurnal Ini</h2>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    Website ini adalah wadah untuk mendokumentasikan dan berbagi kisah-kisah berharga dari desa kami. Dari cerita rakyat turun-temurun, keindahan lanskap yang memukau, hingga karya tulis pribadi yang terinspirasi oleh kearifan lokal. Mari bersama merawat ingatan dan harapan.
+                </p>
+                <div class="mt-8">
+                    <img src="https://placehold.co/800x400/065f46/ffffff?text=Gambar+Budaya+Sunda" alt="Gambar Ilustrasi Budaya Sunda" class="rounded-lg shadow-md mx-auto">
+                    <p class="text-sm text-gray-500 mt-2">Sebuah gambaran kekayaan budaya Sunda di desa kami.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Tentang Saya -->
+        <section id="tentang-saya" class="mb-12 hidden">
+            <h2 class="section-title">Tentang Saya</h2>
+            <div class="card text-center">
+                <img src="https://photos.app.goo.gl/gYVpMt8yRQhxszZT8" alt="Foto Profil Dendi Ardimansah" class="rounded-full mx-auto mb-6 shadow-lg">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Dendi Ardimansah</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    Saya adalah seorang mahasiswa informatika yang suka budaya lokal yang bersemangat untuk mendokumentasikan kekayaan sejarah, tradisi, dan keindahan alam desa saya, Pangrumasan. Melalui tulisan-tulisan ini, saya berharap dapat berbagi cerita dan inspirasi, serta menumbuhkan rasa cinta terhadap warisan leluhur di kalangan generasi muda.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Selain fokus pada sejarah desa, saya juga menulis berbagai karya lain yang terinspirasi dari kehidupan sehari-hari dan kearifan lokal. Mari terhubung!
+                </p>
+                <p class="text-xl font-semibold text-emerald-700 mt-6">Email: <a href="mailto:emailanda@example.com" class="read-more-link">dendiardimansah@gmail.com</a></p>
+                <p class="text-xl font-semibold text-emerald-700 mt-2">Sosial Media: <a href="https://twitter.com/nama_akun_anda" target="_blank" class="read-more-link">Twitter</a> | <a href="https://linkedin.com/in/nama_akun_anda" target="_blank" class="read-more-link">LinkedIn</a></p>
+            </div>
+        </section>
+
+        <!-- Bagian Blog (menggabungkan Sejarah Desa, Budaya, Alam, dan Karya Lain) -->
+        <section id="blog" class="mb-12 hidden">
+            <h2 class="section-title">Blog Saya</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Contoh Postingan Blog Sejarah Desa 1 -->
+                <div class="card">
+                    <h3 class="blog-post-title">Asal Mula Nama Desa [Nama Desa Anda] dan Legenda Lokal</h3>
+                    <p class="blog-post-meta">Sejarah Desa | 5 Juli 2025 oleh Dendi Ardimansah</p>
+                    <p class="text-gray-700 mb-4">
+                        Setiap desa memiliki cerita di balik namanya. Desa kami, [Nama Desa Anda], juga memiliki kisah menarik tentang bagaimana nama ini tercipta, diiringi oleh legenda yang diwariskan...
+                    </p>
+                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+                </div>
+
+                <!-- Contoh Postingan Blog Budaya Desa 2 -->
+                <div class="card">
+                    <h3 class="blog-post-title">Tradisi Gotong Royong & Upacara Adat Panen</h3>
+                    <p class="blog-post-meta">Budaya Desa | 1 Juli 2025 oleh Dendi Ardimansah</p>
+                    <p class="text-gray-700 mb-4">
+                        Gotong royong adalah salah satu pilar utama kehidupan di desa kami. Tradisi ini telah diwariskan turun-temurun dan masih sangat kental, terutama dalam upacara adat panen...
+                    </p>
+                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+                </div>
+
+                <!-- Contoh Postingan Blog Kesenian Desa 3 -->
+                <div class="card">
+                    <h3 class="blog-post-title">Kesenian [Nama Kesenian Khas]: Simbol Kehidupan Desa</h3>
+                    <p class="blog-post-meta">Budaya Desa | 28 Juni 2025 oleh Dendi Ardimansah</p>
+                    <p class="text-gray-700 mb-4">
+                        [Nama Kesenian Khas] bukan hanya sekadar pertunjukan, melainkan cerminan filosofi dan semangat kebersamaan masyarakat desa kami. Mari kita telusuri maknanya...
+                    </p>
+                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+                </div>
+
+                <!-- Contoh Postingan Blog Keindahan Alam 4 -->
+                <div class="card">
+                    <h3 class="blog-post-title">Pesona Sawah Terasering: Hamparan Hijau yang Menenangkan</h3>
+                    <p class="blog-post-meta">Keindahan Alam | 25 Juni 2025 oleh Dendi Ardimansah</p>
+                    <p class="text-gray-700 mb-4">
+                        Sawah terasering di desa kami bukan hanya sumber kehidupan, tetapi juga pemandangan yang memukau mata, terutama saat pagi hari...
+                    </p>
+                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+                </div>
+
+                <!-- Contoh Postingan Blog Keindahan Alam 5 -->
+                <div class="card">
+                    <h3 class="blog-post-title">Mata Air [Nama Mata Air]: Sumber Kehidupan yang Jernih</h3>
+                    <p class="blog-post-meta">Keindahan Alam | 22 Juni 2025 oleh Dendi Ardimansah</p>
+                    <p class="text-gray-700 mb-4">
+                        Di balik rimbunnya pepohonan, mengalir mata air jernih yang menjadi nadi kehidupan desa. Kisah-kisah di baliknya tak kalah menarik...
+                    </p>
+                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+                </div>
+
+                <!-- Contoh Karya Tulis Lain 6 -->
+                <div class="card">
+                    <h3 class="blog-post-title">Puisi: Kidung Alam Sunda</h3>
+                    <p class="blog-post-meta">Karya Tulis | 20 Juni 2025 oleh Dendi Ardimansah</p>
+                    <p class="text-gray-700 mb-4">
+                        Kumpulan kata-kata yang merangkai keindahan senja di pedesaan, sebuah refleksi tentang ketenangan dan kedamaian...
+                    </p>
+                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+                </div>
+
+                <!-- Contoh Karya Tulis Lain 7 -->
+                <div class="card">
+                    <h3 class="blog-post-title">Esai: Kopi Lokal dan Kisah Petani</h3>
+                    <p class="blog-post-meta">Karya Tulis | 15 Juni 2025 oleh Dendi Ardimansah</p>
+                    <p class="text-gray-700 mb-4">
+                        Sebuah esai yang membahas perjalanan biji kopi dari kebun hingga cangkir, serta dedikasi para petani di desa kami...
+                    </p>
+                    <a href="#" class="read-more-link">Baca Selengkapnya &rarr;</a>
+                </div>
+
+                <!-- Tambahkan lebih banyak postingan di sini -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-10">
+        <div class="container text-center">
+            <p>&copy; 2025 Dendi Ardimansah. Semua Hak Cipta Dilindungi.</p>
+            <p class="text-sm mt-2">Dibuat dengan ❤️ </p>
+            <p class="text-sm mt-2">Hubungi saya: <a href="mailto:dendiardimansah@gmail.com" class="text-green-300 hover:underline">dendiardimansah@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Fungsi untuk menampilkan bagian yang dipilih dan menyembunyikan yang lain
+        function showSection(sectionId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('main section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            // Tampilkan section yang dipilih
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            // Hapus kelas 'active-nav' dari semua link navigasi
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-nav');
+            });
+            // Tambahkan kelas 'active-nav' ke link yang sedang aktif
+            document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active-nav');
+        }
+
+        // Event listener untuk navigasi
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tampilkan bagian 'beranda' secara default saat halaman dimuat
+            showSection('beranda');
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Mencegah perilaku default link
+                    const sectionId = this.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
